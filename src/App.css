@@ -142,12 +142,27 @@ button.grey {
     visibility: hidden;
   }
 
+  @page {
+    size: auto;
+    /* auto is the initial value */
+    margin: 0;
+    /* this affects the margin in the printer settings */
+  }
+
+  html,
+  body {
+    height: 99%;
+    overflow: hidden;
+  }
+
   #section-to-print {
     visibility: visible;
     position: absolute;
-    left: 280px;
-    top: 280px;
-    font-size: 20px;
+    left: 210px;
+    top: 220px;
+    font-size: 16px;
+    height: fit-content;
+    width: fit-content;
   }
 
   .sep-section {
