@@ -1,0 +1,17 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 900px;
+    color: #4c304b;
+    font-size: 20px;
+    text-align: right;
+    font-weight: 500;
+    border-bottom: 4px solid #4c304b;
+    padding-bottom: 10px;
+}
+
+.heading-1 {
+    font-size: 40px;
+    font-weight: 800;
+}

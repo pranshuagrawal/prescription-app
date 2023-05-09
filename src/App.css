@@ -32,7 +32,131 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.mr-4 {
+  margin-right: 4px;
+}
+
+button {
+  background: #ffffff;
+  border: 0px;
+  padding: 10px 25px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button.primary {
+  background-color: #3498db;
+  color: #ffffff;
+}
+
+button.sm {
+  padding: 6px 14px;
+}
+
+button.grey {
+  background-color: #f1f1f1;
+  color: #000000;
+}
+
+.add-layout-container {
+  margin-bottom: 20px;
+  margin-top: 5px;
+  height: 80px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px dashed #95a5a6;
+  background-color: #ecf0f1;
+  cursor: pointer;
+}
+
+.select-list-container {
+  z-index: 99;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(218, 218, 218, 0.6);
+}
+
+.select-list {
+  background: #fff;
+  border-radius: 6px;
+  min-width: 440px;
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.select-list-item {
+  padding: 7px 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-cta-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+  background-color: #ffffff;
+  position: sticky;
+  bottom: 0;
+  border-top: 1px solid #eee;
+}
+
+.select-list-filters {
+  border-bottom: 1px solid #eee;
+  padding: 10px
+}
+
+.main-container {
+  display: flex;
+}
+
+.main-prescription {
+  margin-left: 25px;
+  margin-top: 20px;
+  position: relative;
+  width: 700px;
+}
+
+#section-to-print {
+  visibility: hidden;
+}
+
+@media print {
+  body {
+    visibility: hidden;
+  }
+
+  #section-to-print {
+    visibility: visible;
+    position: absolute;
+    left: 280px;
+    top: 280px;
+    font-size: 20px;
+  }
+
+  .sep-section {
+    margin-top: 10px;
+  }
+}
+
+.prescription-cta {
+  position: absolute;
+  top: 0;
+  right: 10px;
 }
