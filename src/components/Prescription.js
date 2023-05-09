@@ -33,6 +33,14 @@ const Prescription = ({ data }) => {
     window.print();
   };
 
+  const erasePrescription = () => {
+    setSelectedData({
+      [ENUM.COMPLAINTS]: [],
+      [ENUM.DIAGNOSIS]: [],
+      [ENUM.MEDICINES]: [],
+    });
+  };
+
   return (
     <>
       {addType && (
@@ -53,6 +61,9 @@ const Prescription = ({ data }) => {
         </div>
         <div className="main-prescription">
           <div className="prescription-cta">
+            <button className="grey mr-4" onClick={erasePrescription}>
+              Erase
+            </button>
             <button className="primary" onClick={initiatePrint}>
               Print
             </button>
