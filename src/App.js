@@ -1,4 +1,4 @@
-import useGoogleSheets from "use-google-sheets";
+// import useGoogleSheets from "use-google-sheets";
 import Prescription from "./components/Prescription";
 import { sampleData } from "./data";
 import "./App.css";
