@@ -183,3 +183,38 @@ button.grey {
 .empty-lines {
   margin-top: 10px;
 }
+
+
+@media (max-width:640px) {
+
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  .header-container {
+    font-size: 14px;
+  }
+
+  .sidebar-container {
+    font-size: 12px;
+    display: none;
+  }
+
+  .heading-1 {
+    font-size: 18px;
+  }
+
+  .heading-2 {
+    font-size: ;
+  }
+
+  .prescription-cta {
+    top: -5px
+  }
+
+  .main-prescription-container {
+    margin-top: 20px;
+  }
+
+  .select-list {
+    min-width: unset;
+    width: 100vw;
+  }
+}

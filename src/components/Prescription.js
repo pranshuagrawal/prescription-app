@@ -77,7 +77,7 @@ const Prescription = ({ data, APP_VERSION }) => {
               Print
             </button>
           </div>
-          <div>
+          <div className="main-prescription-container">
             <strong>Complaints</strong>
             {sort(
               selectedData?.[ENUM.COMPLAINTS]?.data || [],
