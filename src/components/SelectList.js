@@ -3,19 +3,20 @@ import { CheckMark } from "../icons";
 import { MED_TYPE } from "../constants";
 const SelectList = ({
   list = [],
-  selected = [],
+  selectedData = { data: [], emptyLines: 0 },
   onChange = () => {},
+  onChangeEmptyLines = () => {},
   onApply,
   showFilter = false,
 }) => {
   const changeHandler = (item) => {
-    if (selected.includes(item)) {
-      const _s = [...selected];
+    if (selectedData.data.includes(item)) {
+      const _s = [...selectedData.data];
       const index = _s.indexOf(item);
       _s.splice(index, 1);
       onChange([..._s]);
     } else {
-      onChange([...selected, item]);
+      onChange([...selectedData.data, item]);
     }
   };
 
@@ -31,6 +32,7 @@ const SelectList = ({
 
   const onErase = () => {
     onChange([]);
+    onChangeEmptyLines(0);
     onApply();
   };
 
@@ -63,17 +65,36 @@ const SelectList = ({
                 key={item}
                 onClick={() => changeHandler(item)}
               >
-                {item} {selected.includes(item) && <CheckMark />}
+                {item} {selectedData.data.includes(item) && <CheckMark />}
               </div>
             ))}
 
           <div className="list-cta-container">
-            <button className="grey mr-4" onClick={onErase}>
-              Erase
-            </button>
-            <button className="primary" onClick={onApply}>
-              Apply
-            </button>
+            <div>
+              <button
+                className="grey mr-8 sm"
+                onClick={() => onChangeEmptyLines(+selectedData.emptyLines + 1)}
+              >
+                +
+              </button>
+              <span className="mr-8">
+                {selectedData.emptyLines} Empty Lines
+              </span>
+              <button
+                className="grey sm"
+                onClick={() => onChangeEmptyLines(+selectedData.emptyLines - 1)}
+              >
+                -
+              </button>
+            </div>
+            <div>
+              <button className="grey mr-4" onClick={onErase}>
+                Erase
+              </button>
+              <button className="primary" onClick={onApply}>
+                Apply
+              </button>
+            </div>
           </div>
         </div>
       </div>

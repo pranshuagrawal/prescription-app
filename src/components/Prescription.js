@@ -11,17 +11,30 @@ const ENUM = {
 
 const Prescription = ({ data }) => {
   const [addType, setAddType] = React.useState("");
-
-  const [selectedData, setSelectedData] = React.useState({
-    [ENUM.COMPLAINTS]: [],
-    [ENUM.DIAGNOSIS]: [],
-    [ENUM.MEDICINES]: [],
-  });
+  const defaultData = {
+    [ENUM.COMPLAINTS]: { data: [], emptyLines: 0 },
+    [ENUM.DIAGNOSIS]: { data: [], emptyLines: 0 },
+    [ENUM.MEDICINES]: { data: [], emptyLines: 0 },
+  };
+  const [selectedData, setSelectedData] = React.useState({ ...defaultData });
 
   const updateSelectedData = (list, type) => {
     setSelectedData((d) => ({
       ...d,
-      [type]: [...(list || [])],
+      [type]: {
+        ...d[type],
+        data: [...(list || [])],
+      },
+    }));
+  };
+
+  const updateEmptyLines = (emptyLines, type) => {
+    setSelectedData((d) => ({
+      ...d,
+      [type]: {
+        ...d[type],
+        emptyLines,
+      },
     }));
   };
 
@@ -34,11 +47,7 @@ const Prescription = ({ data }) => {
   };
 
   const erasePrescription = () => {
-    setSelectedData({
-      [ENUM.COMPLAINTS]: [],
-      [ENUM.DIAGNOSIS]: [],
-      [ENUM.MEDICINES]: [],
-    });
+    setSelectedData({ ...defaultData });
   };
 
   return (
@@ -46,8 +55,11 @@ const Prescription = ({ data }) => {
       {addType && (
         <SelectList
           list={data[addType]}
-          selected={selectedData[addType]}
+          selectedData={selectedData[addType]}
           onChange={(l) => updateSelectedData(l, addType)}
+          onChangeEmptyLines={(emptyLines) =>
+            updateEmptyLines(emptyLines, addType)
+          }
           onApply={closeSelectList}
           showFilter={addType === ENUM.MEDICINES}
         />
@@ -70,9 +82,14 @@ const Prescription = ({ data }) => {
           </div>
           <div>
             <strong>Complaints</strong>
-            {selectedData[ENUM.COMPLAINTS].map((complaint) => (
+            {(selectedData?.[ENUM.COMPLAINTS]?.data || []).map((complaint) => (
               <div>{complaint}</div>
             ))}
+            {Array(selectedData[ENUM.COMPLAINTS].emptyLines)
+              .fill("")
+              .map((el) => (
+                <div className="empty-lines">_________________________</div>
+              ))}
             <AddLayout
               title="Complaints"
               onClick={() => {
@@ -82,10 +99,15 @@ const Prescription = ({ data }) => {
           </div>
 
           <div>
-            <strong>Diagnosis</strong>
-            {selectedData[ENUM.DIAGNOSIS].map((diagnosis) => (
+            <strong>Diag.</strong>
+            {(selectedData?.[ENUM.DIAGNOSIS]?.data || []).map((diagnosis) => (
               <div>{diagnosis}</div>
             ))}
+            {Array(selectedData[ENUM.DIAGNOSIS].emptyLines)
+              .fill("")
+              .map((el) => (
+                <div className="empty-lines">_________________________</div>
+              ))}
             <AddLayout
               title="Diagnosis"
               onClick={() => {
@@ -96,9 +118,14 @@ const Prescription = ({ data }) => {
 
           <div>
             <strong>Rx</strong>
-            {selectedData[ENUM.MEDICINES].map((medicines) => (
+            {(selectedData?.[ENUM.MEDICINES]?.data || []).map((medicines) => (
               <div>{medicines}</div>
             ))}
+            {Array(selectedData[ENUM.MEDICINES].emptyLines)
+              .fill("")
+              .map((el) => (
+                <div className="empty-lines">_________________________</div>
+              ))}
             <AddLayout
               title="Medicines"
               onClick={() => {
@@ -111,23 +138,38 @@ const Prescription = ({ data }) => {
 
       <div id="section-to-print">
         <div className="sep-section">
-          {selectedData[ENUM.COMPLAINTS].map((complaint) => (
+          {(selectedData?.[ENUM.COMPLAINTS]?.data || []).map((complaint) => (
             <div>{complaint}</div>
           ))}
+          {Array(selectedData[ENUM.COMPLAINTS].emptyLines)
+            .fill("")
+            .map((el) => (
+              <div className="empty-lines">_________________________</div>
+            ))}
         </div>
 
         <div className="sep-section">
-          <strong>Diagnosis</strong>
-          {selectedData[ENUM.DIAGNOSIS].map((diagnosis) => (
+          <strong>Diag.</strong>
+          {(selectedData?.[ENUM.DIAGNOSIS]?.data || []).map((diagnosis) => (
             <div>{diagnosis}</div>
           ))}
+          {Array(selectedData[ENUM.DIAGNOSIS].emptyLines)
+            .fill("")
+            .map((el) => (
+              <div className="empty-lines">_________________________</div>
+            ))}
         </div>
 
         <div className="sep-section">
           <strong>Rx</strong>
-          {selectedData[ENUM.MEDICINES].map((medicines) => (
+          {(selectedData?.[ENUM.MEDICINES]?.data || []).map((medicines) => (
             <div>{medicines}</div>
           ))}
+          {Array(selectedData[ENUM.MEDICINES].emptyLines)
+            .fill("")
+            .map((el) => (
+              <div className="empty-lines">_________________________</div>
+            ))}
         </div>
       </div>
     </>
