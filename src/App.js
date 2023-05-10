@@ -1,6 +1,6 @@
 import useGoogleSheets from "use-google-sheets";
 import Prescription from "./components/Prescription";
-import { sampleData } from "./data";
+// import { sampleData } from "./data";
 import { ENUM } from "./constants";
 import "./App.css";
 import { sort } from "./methods";
