@@ -9,7 +9,7 @@ const ENUM = {
   DIAGNOSIS: "diagnosis",
 };
 
-const Prescription = ({ data }) => {
+const Prescription = ({ data, APP_VERSION }) => {
   const [addType, setAddType] = React.useState("");
   const defaultData = {
     [ENUM.COMPLAINTS]: { data: [], emptyLines: 0 },
@@ -65,7 +65,7 @@ const Prescription = ({ data }) => {
         />
       )}
       <div>
-        <Header />
+        <Header APP_VERSION={APP_VERSION} />
       </div>
       <div className="main-container">
         <div>

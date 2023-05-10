@@ -9,6 +9,14 @@
     font-weight: 500;
     border-bottom: 4px solid #4c304b;
     padding-bottom: 10px;
+    position: relative;
+}
+
+.app-version {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 14px;
 }
 
 .heading-1 {

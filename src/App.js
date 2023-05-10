@@ -22,6 +22,7 @@ import "./App.css";
 // }
 
 function App() {
+  const APP_VERSION = "v0.1";
   // const SHEETID = "1rceEFM19Ict10k1PGVcV_iqawL55V3YT2VmSLMWFafg";
   // const APIKEY = "AIzaSyCYdBlnNPHHP31kM7D5-9MW9FeqOHfW_q0";
   // const {
@@ -65,7 +66,10 @@ function App() {
 
   return (
     <div>
-      <Prescription data={{ complaints, medicines, diagnosis }} />
+      <Prescription
+        APP_VERSION={APP_VERSION}
+        data={{ complaints, medicines, diagnosis }}
+      />
     </div>
   );
 }

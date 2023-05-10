@@ -1,8 +1,9 @@
 import "./Header.css";
 
-const Header = () => {
+const Header = ({ APP_VERSION }) => {
   return (
     <div className="header-container">
+      <div className="app-version">{APP_VERSION}</div>
       <div>
         <div className="heading-1">डा. (श्रीमती) रेनु अग्रवाल</div>
         <div>एम.बी.बी.एस.</div>
