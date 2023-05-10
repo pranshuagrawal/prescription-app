@@ -1,7 +1,9 @@
 // import useGoogleSheets from "use-google-sheets";
 import Prescription from "./components/Prescription";
 import { sampleData } from "./data";
+import { ENUM, MED_TYPE } from "./constants";
 import "./App.css";
+import { sort } from "./methods";
 
 // async function fetchGoogleSheet() {
 //   // Initialize the sheet - doc ID is the long id in the sheets URL
@@ -58,7 +60,8 @@ function App() {
 
   const medicinesData =
     (data || []).find((el) => el.id === "Medicines")?.data || [];
-  const medicines = medicinesData.map((el) => el.Medicines);
+  let medicines = medicinesData.map((el) => el.Medicines);
+  medicines = sort(medicines, ENUM.MEDICINES);
 
   console.log("complaintsData:", complaints);
   console.log("diagnosisData:", diagnosis);

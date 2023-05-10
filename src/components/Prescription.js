@@ -3,11 +3,8 @@ import AddLayout from "./AddLayout";
 import SelectList from "./SelectList";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-const ENUM = {
-  COMPLAINTS: "complaints",
-  MEDICINES: "medicines",
-  DIAGNOSIS: "diagnosis",
-};
+import { ENUM } from "../constants";
+import { sort } from "../methods";
 
 const Prescription = ({ data, APP_VERSION }) => {
   const [addType, setAddType] = React.useState("");
@@ -82,7 +79,10 @@ const Prescription = ({ data, APP_VERSION }) => {
           </div>
           <div>
             <strong>Complaints</strong>
-            {(selectedData?.[ENUM.COMPLAINTS]?.data || []).map((complaint) => (
+            {sort(
+              selectedData?.[ENUM.COMPLAINTS]?.data || [],
+              ENUM.COMPLAINTS
+            ).map((complaint) => (
               <div>{complaint}</div>
             ))}
             {Array(selectedData[ENUM.COMPLAINTS].emptyLines)
@@ -100,7 +100,10 @@ const Prescription = ({ data, APP_VERSION }) => {
 
           <div>
             <strong>Diag.</strong>
-            {(selectedData?.[ENUM.DIAGNOSIS]?.data || []).map((diagnosis) => (
+            {sort(
+              selectedData?.[ENUM.DIAGNOSIS]?.data || [],
+              ENUM.DIAGNOSIS
+            ).map((diagnosis) => (
               <div>{diagnosis}</div>
             ))}
             {Array(selectedData[ENUM.DIAGNOSIS].emptyLines)
@@ -118,7 +121,10 @@ const Prescription = ({ data, APP_VERSION }) => {
 
           <div>
             <strong>Rx</strong>
-            {(selectedData?.[ENUM.MEDICINES]?.data || []).map((medicines) => (
+            {sort(
+              selectedData?.[ENUM.MEDICINES]?.data || [],
+              ENUM.MEDICINES
+            ).map((medicines) => (
               <div>{medicines}</div>
             ))}
             {Array(selectedData[ENUM.MEDICINES].emptyLines)
@@ -138,7 +144,10 @@ const Prescription = ({ data, APP_VERSION }) => {
 
       <div id="section-to-print">
         <div className="sep-section">
-          {(selectedData?.[ENUM.COMPLAINTS]?.data || []).map((complaint) => (
+          {sort(
+            selectedData?.[ENUM.COMPLAINTS]?.data || [],
+            ENUM.COMPLAINTS
+          ).map((complaint) => (
             <div>{complaint}</div>
           ))}
           {Array(selectedData[ENUM.COMPLAINTS].emptyLines)
@@ -150,9 +159,11 @@ const Prescription = ({ data, APP_VERSION }) => {
 
         <div className="sep-section">
           <strong>Diag.</strong>
-          {(selectedData?.[ENUM.DIAGNOSIS]?.data || []).map((diagnosis) => (
-            <div>{diagnosis}</div>
-          ))}
+          {sort(selectedData?.[ENUM.DIAGNOSIS]?.data || [], ENUM.DIAGNOSIS).map(
+            (diagnosis) => (
+              <div>{diagnosis}</div>
+            )
+          )}
           {Array(selectedData[ENUM.DIAGNOSIS].emptyLines)
             .fill("")
             .map((el) => (
@@ -162,9 +173,11 @@ const Prescription = ({ data, APP_VERSION }) => {
 
         <div className="sep-section">
           <strong>Rx</strong>
-          {(selectedData?.[ENUM.MEDICINES]?.data || []).map((medicines) => (
-            <div>{medicines}</div>
-          ))}
+          {sort(selectedData?.[ENUM.MEDICINES]?.data || [], ENUM.MEDICINES).map(
+            (medicines) => (
+              <div>{medicines}</div>
+            )
+          )}
           {Array(selectedData[ENUM.MEDICINES].emptyLines)
             .fill("")
             .map((el) => (
