@@ -23,28 +23,71 @@ function App() {
     return <div className="loader">Error...</div>;
   }
 
+  const groupsData = (data || []).find((el) => el.id === "Groups")?.data || [];
+  const groups = groupsData.map((el) => el.GroupId).sort();
+  const groupAssociations = {};
+  groups.forEach((group) => {
+    groupAssociations[group] = {
+      [ENUM.COMPLAINTS]: [],
+      [ENUM.DIAGNOSIS]: [],
+      [ENUM.MEDICINES]: [],
+    };
+  });
+
   const complaintsData =
     (data || []).find((el) => el.id === "Complaints")?.data || [];
-  const complaints = complaintsData.map((el) => el.Complaints).sort();
+  const complaints = complaintsData
+    .map((el) => {
+      if (el.Group) {
+        const specificGroups = el.Group.split(",").map((el) => el.trim());
+        specificGroups.forEach((specificGroup) => {
+          if (groupAssociations[specificGroup]) {
+            groupAssociations[specificGroup][ENUM.COMPLAINTS].push(
+              el.Complaints
+            );
+          }
+        });
+      }
+      return el.Complaints;
+    })
+    .sort();
 
   const diagnosisData =
     (data || []).find((el) => el.id === "Diagnosis")?.data || [];
-  const diagnosis = diagnosisData.map((el) => el.Diagnosis).sort();
+  const diagnosis = diagnosisData
+    .map((el) => {
+      if (el.Group) {
+        const specificGroups = el.Group.split(",").map((el) => el.trim());
+        specificGroups.forEach((specificGroup) => {
+          if (groupAssociations[specificGroup]) {
+            groupAssociations[specificGroup][ENUM.DIAGNOSIS].push(el.Diagnosis);
+          }
+        });
+      }
+      return el.Diagnosis;
+    })
+    .sort();
 
   const medicinesData =
     (data || []).find((el) => el.id === "Medicines")?.data || [];
-  let medicines = medicinesData.map((el) => el.Medicines);
+  let medicines = medicinesData.map((el) => {
+    if (el.Group) {
+      const specificGroups = el.Group.split(",").map((el) => el.trim());
+      specificGroups.forEach((specificGroup) => {
+        if (groupAssociations[specificGroup]) {
+          groupAssociations[specificGroup][ENUM.MEDICINES].push(el.Medicines);
+        }
+      });
+    }
+    return el.Medicines;
+  });
   medicines = sort(medicines, ENUM.MEDICINES);
-
-  console.log("complaintsData:", complaints);
-  console.log("diagnosisData:", diagnosis);
-  console.log("medicines:", medicines);
 
   return (
     <div>
       <Prescription
         APP_VERSION={APP_VERSION}
-        data={{ complaints, medicines, diagnosis }}
+        data={{ complaints, medicines, diagnosis, groups, groupAssociations }}
       />
     </div>
   );

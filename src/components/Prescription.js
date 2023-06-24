@@ -49,11 +49,13 @@ const Prescription = ({ data, APP_VERSION }) => {
 
   return (
     <>
-      {addType && (
+      {addType && addType !== "GROUP" && (
         <SelectList
           list={data[addType]}
           selectedData={selectedData[addType]}
-          onChange={(l) => updateSelectedData(l, addType)}
+          onChange={(l) => {
+            updateSelectedData(l, addType);
+          }}
           onChangeEmptyLines={(emptyLines) =>
             updateEmptyLines(emptyLines, addType)
           }
@@ -61,6 +63,25 @@ const Prescription = ({ data, APP_VERSION }) => {
           showFilter={addType === ENUM.MEDICINES}
         />
       )}
+
+      {addType === "GROUP" && (
+        <SelectList
+          list={data && data.groups ? data.groups : []}
+          selectedData={{ data: [], emptyLines: 0 }}
+          onChange={(l) => {
+            setAddType("");
+            const groupData = data.groupAssociations[l];
+            updateSelectedData(groupData[ENUM.COMPLAINTS], ENUM.COMPLAINTS);
+            updateSelectedData(groupData[ENUM.DIAGNOSIS], ENUM.DIAGNOSIS);
+            updateSelectedData(groupData[ENUM.MEDICINES], ENUM.MEDICINES);
+          }}
+          onApply={closeSelectList}
+          showEmptyLines={false}
+          showApply={false}
+          eraseText="Close"
+        />
+      )}
+
       <div>
         <Header APP_VERSION={APP_VERSION} />
       </div>
@@ -78,6 +99,12 @@ const Prescription = ({ data, APP_VERSION }) => {
             </button>
           </div>
           <div className="main-prescription-container">
+            <AddLayout
+              title="Using Group"
+              onClick={() => {
+                setAddType("GROUP");
+              }}
+            />
             <strong>Complaints</strong>
             {sort(
               selectedData?.[ENUM.COMPLAINTS]?.data || [],

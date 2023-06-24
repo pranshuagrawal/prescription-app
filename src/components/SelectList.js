@@ -8,6 +8,9 @@ const SelectList = ({
   onChangeEmptyLines = () => {},
   onApply,
   showFilter = false,
+  showEmptyLines = true,
+  showApply = true,
+  eraseText = "Erase",
 }) => {
   const changeHandler = (item) => {
     if (selectedData.data.includes(item)) {
@@ -71,29 +74,39 @@ const SelectList = ({
 
           <div className="list-cta-container">
             <div>
-              <button
-                className="grey mr-8 sm"
-                onClick={() => onChangeEmptyLines(+selectedData.emptyLines + 1)}
-              >
-                +
-              </button>
-              <span className="mr-8">
-                {selectedData.emptyLines} Empty Lines
-              </span>
-              <button
-                className="grey sm"
-                onClick={() => onChangeEmptyLines(+selectedData.emptyLines - 1)}
-              >
-                -
-              </button>
+              {showEmptyLines && (
+                <>
+                  <button
+                    className="grey mr-8 sm"
+                    onClick={() =>
+                      onChangeEmptyLines(+selectedData.emptyLines + 1)
+                    }
+                  >
+                    +
+                  </button>
+                  <span className="mr-8">
+                    {selectedData.emptyLines} Empty Lines
+                  </span>
+                  <button
+                    className="grey sm"
+                    onClick={() =>
+                      onChangeEmptyLines(+selectedData.emptyLines - 1)
+                    }
+                  >
+                    -
+                  </button>
+                </>
+              )}
             </div>
             <div>
               <button className="grey mr-4" onClick={onErase}>
-                Erase
+                {eraseText}
               </button>
-              <button className="primary" onClick={onApply}>
-                Apply
-              </button>
+              {showApply && (
+                <button className="primary" onClick={onApply}>
+                  Apply
+                </button>
+              )}
             </div>
           </div>
         </div>
