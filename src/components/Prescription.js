@@ -61,24 +61,8 @@ const Prescription = ({ data, APP_VERSION }) => {
           }
           onApply={closeSelectList}
           showFilter={addType === ENUM.MEDICINES}
-        />
-      )}
-
-      {addType === "GROUP" && (
-        <SelectList
-          list={data && data.groups ? data.groups : []}
-          selectedData={{ data: [], emptyLines: 0 }}
-          onChange={(l) => {
-            setAddType("");
-            const groupData = data.groupAssociations[l];
-            updateSelectedData(groupData[ENUM.COMPLAINTS], ENUM.COMPLAINTS);
-            updateSelectedData(groupData[ENUM.DIAGNOSIS], ENUM.DIAGNOSIS);
-            updateSelectedData(groupData[ENUM.MEDICINES], ENUM.MEDICINES);
-          }}
-          onApply={closeSelectList}
-          showEmptyLines={false}
-          showApply={false}
-          eraseText="Close"
+          additionalFilters={data.groups}
+          filterAssociations={data.groupAssociations}
         />
       )}
 
@@ -99,13 +83,7 @@ const Prescription = ({ data, APP_VERSION }) => {
             </button>
           </div>
           <div className="main-prescription-container">
-            <AddLayout
-              title="Using Group"
-              onClick={() => {
-                setAddType("GROUP");
-              }}
-            />
-            <strong>Complaints</strong>
+            {/* <strong>Complaints</strong> */}
             {sort(
               selectedData?.[ENUM.COMPLAINTS]?.data || [],
               ENUM.COMPLAINTS
@@ -117,12 +95,12 @@ const Prescription = ({ data, APP_VERSION }) => {
               .map((el) => (
                 <div className="empty-lines">_________________________</div>
               ))}
-            <AddLayout
+            {/* <AddLayout
               title="Complaints"
               onClick={() => {
                 setAddType(ENUM.COMPLAINTS);
               }}
-            />
+            /> */}
           </div>
 
           <div>
@@ -169,8 +147,16 @@ const Prescription = ({ data, APP_VERSION }) => {
         </div>
       </div>
 
-      <div id="section-to-print">
-        <div className="sep-section">
+      <div
+        id="section-to-print"
+        style={{
+          top:
+            (selectedData?.[ENUM.DIAGNOSIS]?.data || []).length === 0
+              ? "380px"
+              : "300px",
+        }}
+      >
+        {/* <div className="sep-section">
           {sort(
             selectedData?.[ENUM.COMPLAINTS]?.data || [],
             ENUM.COMPLAINTS
@@ -182,21 +168,24 @@ const Prescription = ({ data, APP_VERSION }) => {
             .map((el) => (
               <div className="empty-lines">_________________________</div>
             ))}
-        </div>
+        </div>  */}
 
-        <div className="sep-section">
-          <strong>Diag.</strong>
-          {sort(selectedData?.[ENUM.DIAGNOSIS]?.data || [], ENUM.DIAGNOSIS).map(
-            (diagnosis) => (
+        {(selectedData?.[ENUM.DIAGNOSIS]?.data || []).length !== 0 && (
+          <div className="sep-section">
+            <strong>Diag.</strong>
+            {sort(
+              selectedData?.[ENUM.DIAGNOSIS]?.data || [],
+              ENUM.DIAGNOSIS
+            ).map((diagnosis) => (
               <div>{diagnosis}</div>
-            )
-          )}
-          {Array(selectedData[ENUM.DIAGNOSIS].emptyLines)
-            .fill("")
-            .map((el) => (
-              <div className="empty-lines">_________________________</div>
             ))}
-        </div>
+            {Array(selectedData[ENUM.DIAGNOSIS].emptyLines)
+              .fill("")
+              .map((el) => (
+                <div className="empty-lines">_________________________</div>
+              ))}
+          </div>
+        )}
 
         <div className="sep-section">
           <strong>Rx</strong>

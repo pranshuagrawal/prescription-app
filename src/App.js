@@ -81,6 +81,7 @@ function App() {
     }
     return el.Medicines;
   });
+
   medicines = sort(medicines, ENUM.MEDICINES);
 
   return (

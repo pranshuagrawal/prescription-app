@@ -11,6 +11,8 @@ const SelectList = ({
   showEmptyLines = true,
   showApply = true,
   eraseText = "Erase",
+  additionalFilters = [],
+  filterAssociations = {},
 }) => {
   const changeHandler = (item) => {
     if (selectedData.data.includes(item)) {
@@ -45,9 +47,9 @@ const SelectList = ({
         <div className="select-list">
           {showFilter && (
             <div className="select-list-filters">
-              {MED_TYPE.map((filter) => (
+              {[...MED_TYPE, ...additionalFilters].map((filter) => (
                 <button
-                  className={`sm mr-4 ${
+                  className={`sm mr-4 mb-4 ${
                     appliedFilter === filter ? "primary" : "grey"
                   }`}
                   onClick={() => handleFilterChange(filter)}
@@ -59,9 +61,14 @@ const SelectList = ({
           )}
 
           {list
-            .filter((item) =>
-              appliedFilter ? item.includes(appliedFilter) : true
-            )
+            .filter((item) => {
+              if (!appliedFilter) return true;
+              if (MED_TYPE.includes(appliedFilter))
+                return item.includes(appliedFilter);
+              return (
+                filterAssociations?.[appliedFilter]?.medicines || []
+              ).includes(item);
+            })
             .map((item) => (
               <div
                 className="select-list-item"

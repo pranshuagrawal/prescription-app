@@ -53,6 +53,10 @@
   margin-right: 4px;
 }
 
+.mb-4 {
+  margin-bottom: 4px;
+}
+
 .mr-8 {
   margin-right: 8px;
 }
@@ -107,7 +111,7 @@ button.grey {
 .select-list {
   background: #fff;
   border-radius: 6px;
-  min-width: 440px;
+  width: 440px;
   max-height: 70vh;
   overflow: auto;
 }
@@ -173,8 +177,8 @@ button.grey {
   #section-to-print {
     visibility: visible;
     position: absolute;
-    left: 195px;
-    top: 220px;
+    left: 205px;
+    /* top: 220px; */
     font-size: 16px;
     height: fit-content;
     width: fit-content;
@@ -213,7 +217,7 @@ button.grey {
   }
 
   .heading-2 {
-    font-size: ;
+    font-size: 20px;
   }
 
   .prescription-cta {
