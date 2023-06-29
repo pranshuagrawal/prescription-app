@@ -47,6 +47,10 @@ const Prescription = ({ data, APP_VERSION }) => {
     setSelectedData({ ...defaultData });
   };
 
+  const reloadData = () => {
+    window.location.reload();
+  };
+
   return (
     <>
       {addType && addType !== "GROUP" && (
@@ -75,6 +79,9 @@ const Prescription = ({ data, APP_VERSION }) => {
         </div>
         <div className="main-prescription">
           <div className="prescription-cta">
+            <button className="grey mr-4" onClick={reloadData}>
+              Refresh
+            </button>
             <button className="grey mr-4" onClick={erasePrescription}>
               Erase
             </button>
