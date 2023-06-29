@@ -1,6 +1,6 @@
 import useGoogleSheets from "use-google-sheets";
 import Prescription from "./components/Prescription";
-// import { sampleData } from "./data";
+// import { lastUpdatedData } from "./data";
 import { ENUM } from "./constants";
 import "./App.css";
 import { sort } from "./methods";
@@ -14,6 +14,7 @@ function App() {
     apiKey: APIKEY,
     sheetId: SHEETID,
   });
+  console.log("data:", data);
 
   if (loading) {
     return <div className="loader">Loading...</div>;
