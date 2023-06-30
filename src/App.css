@@ -199,6 +199,10 @@ button.grey {
   margin-top: 10px;
 }
 
+.individual-element {
+  line-height: 30px;
+}
+
 
 @media (max-width:640px) {
 

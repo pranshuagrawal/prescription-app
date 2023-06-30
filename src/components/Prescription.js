@@ -95,7 +95,7 @@ const Prescription = ({ data, APP_VERSION }) => {
               selectedData?.[ENUM.COMPLAINTS]?.data || [],
               ENUM.COMPLAINTS
             ).map((complaint) => (
-              <div>{complaint}</div>
+              <div className="individual-element">{complaint}</div>
             ))}
             {Array(selectedData[ENUM.COMPLAINTS].emptyLines)
               .fill("")
@@ -116,7 +116,7 @@ const Prescription = ({ data, APP_VERSION }) => {
               selectedData?.[ENUM.DIAGNOSIS]?.data || [],
               ENUM.DIAGNOSIS
             ).map((diagnosis) => (
-              <div>{diagnosis}</div>
+              <div className="individual-element">{diagnosis}</div>
             ))}
             {Array(selectedData[ENUM.DIAGNOSIS].emptyLines)
               .fill("")
@@ -137,7 +137,7 @@ const Prescription = ({ data, APP_VERSION }) => {
               selectedData?.[ENUM.MEDICINES]?.data || [],
               ENUM.MEDICINES
             ).map((medicines) => (
-              <div>{medicines}</div>
+              <div className="individual-element">{medicines}</div>
             ))}
             {Array(selectedData[ENUM.MEDICINES].emptyLines)
               .fill("")
@@ -184,7 +184,7 @@ const Prescription = ({ data, APP_VERSION }) => {
               selectedData?.[ENUM.DIAGNOSIS]?.data || [],
               ENUM.DIAGNOSIS
             ).map((diagnosis) => (
-              <div>{diagnosis}</div>
+              <div className="individual-element">{diagnosis}</div>
             ))}
             {Array(selectedData[ENUM.DIAGNOSIS].emptyLines)
               .fill("")
@@ -198,7 +198,7 @@ const Prescription = ({ data, APP_VERSION }) => {
           <strong>Rx</strong>
           {sort(selectedData?.[ENUM.MEDICINES]?.data || [], ENUM.MEDICINES).map(
             (medicines) => (
-              <div>{medicines}</div>
+              <div className="individual-element">{medicines}</div>
             )
           )}
           {Array(selectedData[ENUM.MEDICINES].emptyLines)
