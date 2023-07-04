@@ -13,6 +13,10 @@
   }
 }
 
+.strong {
+  font-weight: bold;
+}
+
 .loader {
   position: absolute;
   height: 100vh;
@@ -126,14 +130,18 @@ button.grey {
 }
 
 .list-cta-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 10px;
   background-color: #ffffff;
   position: sticky;
-  bottom: 0;
+  bottom: -1px;
   border-top: 1px solid #eee;
+}
+
+.list-cta-container-singlerow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
 }
 
 .select-list-filters {
@@ -201,6 +209,13 @@ button.grey {
 
 .individual-element {
   line-height: 30px;
+}
+
+.num-of-days {
+  border-top: 1px solid #888;
+  display: table;
+  margin-top: 20px;
+  font-weight: bold;
 }
 
 

@@ -68,7 +68,6 @@ function App() {
       return el.Diagnosis;
     })
     .sort();
-
   const medicinesData =
     (data || []).find((el) => el.id === "Medicines")?.data || [];
   let medicines = medicinesData.map((el) => {
@@ -89,7 +88,13 @@ function App() {
     <div>
       <Prescription
         APP_VERSION={APP_VERSION}
-        data={{ complaints, medicines, diagnosis, groups, groupAssociations }}
+        data={{
+          complaints,
+          medicines,
+          diagnosis,
+          groups,
+          groupAssociations,
+        }}
       />
     </div>
   );

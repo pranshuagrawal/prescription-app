@@ -3,8 +3,10 @@ import { CheckMark } from "../icons";
 import { MED_TYPE } from "../constants";
 const SelectList = ({
   list = [],
+  selectedDays = "",
   selectedData = { data: [], emptyLines: 0 },
   onChange = () => {},
+  onChangeDays = () => {},
   onChangeEmptyLines = () => {},
   onApply,
   showFilter = false,
@@ -80,40 +82,55 @@ const SelectList = ({
             ))}
 
           <div className="list-cta-container">
-            <div>
-              {showEmptyLines && (
-                <>
-                  <button
-                    className="grey mr-8 sm"
-                    onClick={() =>
-                      onChangeEmptyLines(+selectedData.emptyLines + 1)
-                    }
-                  >
-                    +
-                  </button>
-                  <span className="mr-8">
-                    {selectedData.emptyLines} Empty Lines
-                  </span>
-                  <button
-                    className="grey sm"
-                    onClick={() =>
-                      onChangeEmptyLines(+selectedData.emptyLines - 1)
-                    }
-                  >
-                    -
-                  </button>
-                </>
-              )}
-            </div>
-            <div>
-              <button className="grey mr-4" onClick={onErase}>
-                {eraseText}
-              </button>
-              {showApply && (
-                <button className="primary" onClick={onApply}>
-                  Apply
+            <div style={{ flex: 1 }}>
+              {["", "7 Days", "10 Days", "15 Days", "1 Month"].map((day) => (
+                <button
+                  className={`${
+                    day === selectedDays ? "primary" : "grey"
+                  } mr-8 sm`}
+                  onClick={() => onChangeDays(day)}
+                >
+                  {day === "" ? "None" : day}
                 </button>
-              )}
+              ))}
+            </div>
+            <div className="list-cta-container-singlerow">
+              <div>
+                {showEmptyLines && (
+                  <>
+                    <button
+                      className="grey mr-8 sm"
+                      onClick={() =>
+                        onChangeEmptyLines(+selectedData.emptyLines + 1)
+                      }
+                    >
+                      +
+                    </button>
+                    <span className="mr-8">
+                      {selectedData.emptyLines} Empty Lines
+                    </span>
+                    <button
+                      className="grey sm"
+                      onClick={() =>
+                        onChangeEmptyLines(+selectedData.emptyLines - 1)
+                      }
+                    >
+                      -
+                    </button>
+                  </>
+                )}
+              </div>
+
+              <div>
+                <button className="grey mr-4" onClick={onErase}>
+                  {eraseText}
+                </button>
+                {showApply && (
+                  <button className="primary" onClick={onApply}>
+                    Apply
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

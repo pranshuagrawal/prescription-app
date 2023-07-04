@@ -12,6 +12,7 @@ const Prescription = ({ data, APP_VERSION }) => {
     [ENUM.COMPLAINTS]: { data: [], emptyLines: 0 },
     [ENUM.DIAGNOSIS]: { data: [], emptyLines: 0 },
     [ENUM.MEDICINES]: { data: [], emptyLines: 0 },
+    days: "",
   };
   const [selectedData, setSelectedData] = React.useState({ ...defaultData });
 
@@ -22,6 +23,13 @@ const Prescription = ({ data, APP_VERSION }) => {
         ...d[type],
         data: [...(list || [])],
       },
+    }));
+  };
+
+  const updateDays = (days) => {
+    setSelectedData((d) => ({
+      ...d,
+      days,
     }));
   };
 
@@ -56,6 +64,7 @@ const Prescription = ({ data, APP_VERSION }) => {
       {addType && addType !== "GROUP" && (
         <SelectList
           list={data[addType]}
+          selectedDays={selectedData.days}
           selectedData={selectedData[addType]}
           onChange={(l) => {
             updateSelectedData(l, addType);
@@ -63,8 +72,12 @@ const Prescription = ({ data, APP_VERSION }) => {
           onChangeEmptyLines={(emptyLines) =>
             updateEmptyLines(emptyLines, addType)
           }
+          onChangeDays={(days) => {
+            updateDays(days);
+          }}
           onApply={closeSelectList}
           showFilter={addType === ENUM.MEDICINES}
+          showDays={addType === ENUM.MEDICINES}
           additionalFilters={data.groups}
           filterAssociations={data.groupAssociations}
         />
@@ -139,11 +152,17 @@ const Prescription = ({ data, APP_VERSION }) => {
             ).map((medicines) => (
               <div className="individual-element">{medicines}</div>
             ))}
+
             {Array(selectedData[ENUM.MEDICINES].emptyLines)
               .fill("")
               .map((el) => (
                 <div className="empty-lines">_________________________</div>
               ))}
+            {selectedData.days && (
+              <div className="individual-element num-of-days">
+                No. of days - {selectedData.days}
+              </div>
+            )}
             <AddLayout
               title="Medicines"
               onClick={() => {
@@ -201,11 +220,17 @@ const Prescription = ({ data, APP_VERSION }) => {
               <div className="individual-element">{medicines}</div>
             )
           )}
+
           {Array(selectedData[ENUM.MEDICINES].emptyLines)
             .fill("")
             .map((el) => (
               <div className="empty-lines">_________________________</div>
             ))}
+          {selectedData.days && (
+            <div className="individual-element num-of-days">
+              No. of days - {selectedData.days}
+            </div>
+          )}
         </div>
       </div>
     </>
