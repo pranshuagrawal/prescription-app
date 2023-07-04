@@ -83,11 +83,19 @@ const SelectList = ({
 
           <div className="list-cta-container">
             <div style={{ flex: 1 }}>
-              {["", "7 Days", "10 Days", "15 Days", "1 Month"].map((day) => (
+              {[
+                "",
+                "3 Days",
+                "5 Days",
+                "7 Days",
+                "10 Days",
+                "15 Days",
+                "1 Month",
+              ].map((day) => (
                 <button
                   className={`${
                     day === selectedDays ? "primary" : "grey"
-                  } mr-8 sm`}
+                  } mr-8 mb-4 sm`}
                   onClick={() => onChangeDays(day)}
                 >
                   {day === "" ? "None" : day}

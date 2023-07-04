@@ -160,7 +160,7 @@ const Prescription = ({ data, APP_VERSION }) => {
               ))}
             {selectedData.days && (
               <div className="individual-element num-of-days">
-                No. of days - {selectedData.days}
+                {selectedData.days}
               </div>
             )}
             <AddLayout
@@ -228,7 +228,7 @@ const Prescription = ({ data, APP_VERSION }) => {
             ))}
           {selectedData.days && (
             <div className="individual-element num-of-days">
-              No. of days - {selectedData.days}
+              {selectedData.days}
             </div>
           )}
         </div>
