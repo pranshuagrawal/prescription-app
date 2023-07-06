@@ -78,6 +78,7 @@ const Prescription = ({ data, APP_VERSION }) => {
           onApply={closeSelectList}
           showFilter={addType === ENUM.MEDICINES}
           showDays={addType === ENUM.MEDICINES}
+          showSearch={addType === ENUM.MEDICINES}
           additionalFilters={data.groups}
           filterAssociations={data.groupAssociations}
         />

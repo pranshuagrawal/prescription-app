@@ -1,6 +1,7 @@
 import React from "react";
 import { CheckMark } from "../icons";
 import { MED_TYPE } from "../constants";
+import { SearchIcon } from "./SearchIcon";
 const SelectList = ({
   list = [],
   selectedDays = "",
@@ -15,6 +16,7 @@ const SelectList = ({
   eraseText = "Erase",
   additionalFilters = [],
   filterAssociations = {},
+  showSearch = false,
 }) => {
   const changeHandler = (item) => {
     if (selectedData.data.includes(item)) {
@@ -43,12 +45,37 @@ const SelectList = ({
     onApply();
   };
 
+  const [isSearchShow, setShowSearch] = React.useState(false);
+  const [searchString, setSearchString] = React.useState("");
+  const searchRef = React.useRef();
+
+  const initSearch = () => {
+    if (isSearchShow) {
+      setShowSearch(false);
+      setSearchString("");
+    } else {
+      setShowSearch(true);
+      handleFilterChange("");
+      setSearchString("");
+    }
+  };
+
   return (
     <>
       <div className="select-list-container">
         <div className="select-list">
           {showFilter && (
             <div className="select-list-filters">
+              {showSearch && (
+                <button
+                  className={`sm mr-4 mb-4 ${
+                    isSearchShow ? "primary" : "grey"
+                  }`}
+                  onClick={initSearch}
+                >
+                  Search
+                </button>
+              )}
               {[...MED_TYPE, ...additionalFilters].map((filter) => (
                 <button
                   className={`sm mr-4 mb-4 ${
@@ -59,6 +86,19 @@ const SelectList = ({
                   {filter}
                 </button>
               ))}
+
+              {isSearchShow && showSearch && (
+                <div>
+                  <input
+                    value={searchString}
+                    onChange={(e) => setSearchString(e.target.value)}
+                    ref={searchRef}
+                    autoFocus
+                    placeholder="Search Medicines..."
+                    className="search-input"
+                  />
+                </div>
+              )}
             </div>
           )}
 
@@ -71,6 +111,11 @@ const SelectList = ({
                 filterAssociations?.[appliedFilter]?.medicines || []
               ).includes(item);
             })
+            .filter((item) =>
+              (item || "")
+                .toLowerCase()
+                .includes((searchString || "").toLowerCase())
+            )
             .map((item) => (
               <div
                 className="select-list-item"
