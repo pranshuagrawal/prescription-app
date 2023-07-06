@@ -1,7 +1,7 @@
 import React from "react";
 import { CheckMark } from "../icons";
 import { MED_TYPE } from "../constants";
-import { SearchIcon } from "./SearchIcon";
+// import { SearchIcon } from "./SearchIcon";
 const SelectList = ({
   list = [],
   selectedDays = "",
