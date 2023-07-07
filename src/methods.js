@@ -1,5 +1,5 @@
 import { ENUM, MED_TYPE } from "./constants";
-const TOP_MEDS = ["RRD", "Bestozyme"];
+const TOP_MEDS = ["RRD", "Bestozyme", "Supra Plus"];
 export const sort = (data, type) => {
   // console.log("TOP_MEDS:", TOP_MEDS);
   const copiedList = [...data];
