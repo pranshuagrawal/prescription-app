@@ -4,7 +4,6 @@ import SelectList from "./SelectList";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { ENUM } from "../constants";
-import { sort } from "../methods";
 
 const Prescription = ({ data, APP_VERSION }) => {
   const [addType, setAddType] = React.useState("");
@@ -105,10 +104,7 @@ const Prescription = ({ data, APP_VERSION }) => {
           </div>
           <div className="main-prescription-container">
             {/* <strong>Complaints</strong> */}
-            {sort(
-              selectedData?.[ENUM.COMPLAINTS]?.data || [],
-              ENUM.COMPLAINTS
-            ).map((complaint) => (
+            {(selectedData?.[ENUM.COMPLAINTS]?.data || []).map((complaint) => (
               <div className="individual-element">{complaint}</div>
             ))}
             {Array(selectedData[ENUM.COMPLAINTS].emptyLines)
@@ -126,10 +122,7 @@ const Prescription = ({ data, APP_VERSION }) => {
 
           <div>
             <strong>Diag.</strong>
-            {sort(
-              selectedData?.[ENUM.DIAGNOSIS]?.data || [],
-              ENUM.DIAGNOSIS
-            ).map((diagnosis) => (
+            {(selectedData?.[ENUM.DIAGNOSIS]?.data || []).map((diagnosis) => (
               <div className="individual-element">{diagnosis}</div>
             ))}
             {Array(selectedData[ENUM.DIAGNOSIS].emptyLines)
@@ -147,10 +140,7 @@ const Prescription = ({ data, APP_VERSION }) => {
 
           <div>
             <strong>Rx</strong>
-            {sort(
-              selectedData?.[ENUM.MEDICINES]?.data || [],
-              ENUM.MEDICINES
-            ).map((medicines) => (
+            {(selectedData?.[ENUM.MEDICINES]?.data || []).map((medicines) => (
               <div className="individual-element">{medicines}</div>
             ))}
 
@@ -200,10 +190,7 @@ const Prescription = ({ data, APP_VERSION }) => {
         {(selectedData?.[ENUM.DIAGNOSIS]?.data || []).length !== 0 && (
           <div className="sep-section">
             <strong>Diag.</strong>
-            {sort(
-              selectedData?.[ENUM.DIAGNOSIS]?.data || [],
-              ENUM.DIAGNOSIS
-            ).map((diagnosis) => (
+            {(selectedData?.[ENUM.DIAGNOSIS]?.data || []).map((diagnosis) => (
               <div className="individual-element">{diagnosis}</div>
             ))}
             {Array(selectedData[ENUM.DIAGNOSIS].emptyLines)
@@ -216,11 +203,9 @@ const Prescription = ({ data, APP_VERSION }) => {
 
         <div className="sep-section">
           <strong>Rx</strong>
-          {sort(selectedData?.[ENUM.MEDICINES]?.data || [], ENUM.MEDICINES).map(
-            (medicines) => (
-              <div className="individual-element">{medicines}</div>
-            )
-          )}
+          {(selectedData?.[ENUM.MEDICINES]?.data || []).map((medicines) => (
+            <div className="individual-element">{medicines}</div>
+          ))}
 
           {Array(selectedData[ENUM.MEDICINES].emptyLines)
             .fill("")

@@ -68,8 +68,10 @@ function App() {
       return el.Diagnosis;
     })
     .sort();
+
   const medicinesData =
     (data || []).find((el) => el.id === "Medicines")?.data || [];
+  const frequentMedicineList = [];
   let medicines = medicinesData.map((el) => {
     if (el.Group) {
       const specificGroups = el.Group.split(",").map((el) => el.trim());
@@ -79,10 +81,17 @@ function App() {
         }
       });
     }
+
+    if (el.Frequent && el.Frequent === "Yes") {
+      frequentMedicineList.push(el.Medicines);
+    }
+
     return el.Medicines;
   });
 
-  medicines = sort(medicines, ENUM.MEDICINES);
+  console.log("frequentMedicineList:", frequentMedicineList);
+
+  medicines = sort(medicines, ENUM.MEDICINES, frequentMedicineList);
 
   return (
     <div>
