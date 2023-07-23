@@ -21,7 +21,6 @@ const SelectList = ({
   filterAssociations = {},
   showSearch = false,
 }) => {
-  console.log("filterAssociations:", filterAssociations);
   const changeHandler = (item) => {
     if (selectedData.data.includes(item)) {
       const _s = [...selectedData.data];
@@ -84,7 +83,7 @@ const SelectList = ({
       .filter((item) =>
         (item || "").toLowerCase().includes((searchString || "").toLowerCase())
       );
-  }, [list, appliedFilter, searchString]);
+  }, [list, appliedFilter, searchString, filterAssociations]);
 
   return (
     <>
