@@ -3,11 +3,10 @@ import Prescription from "./components/Prescription";
 // import { lastUpdatedData } from "./data";
 import { ENUM } from "./constants";
 import "./App.css";
-import { sort } from "./methods";
 
 function App() {
   const APP_VERSION = "v0.1";
-  const SHEETID = "1rceEFM19Ict10k1PGVcV_iqawL55V3YT2VmSLMWFafg";
+  const SHEETID = "1ZrQNLPgm2YrdiRD9_Ki4WNclnoy9gObgSjdrlr-Umbg";
   const APIKEY = "AIzaSyCYdBlnNPHHP31kM7D5-9MW9FeqOHfW_q0";
 
   const { data, loading, error } = useGoogleSheets({
@@ -71,7 +70,7 @@ function App() {
 
   const medicinesData =
     (data || []).find((el) => el.id === "Medicines")?.data || [];
-  const frequentMedicineList = [];
+  // const frequentMedicineList = [];
   let medicines = medicinesData.map((el) => {
     if (el.Group) {
       const specificGroups = el.Group.split(",").map((el) => el.trim());
@@ -82,16 +81,17 @@ function App() {
       });
     }
 
-    if (el.Frequent && el.Frequent === "Yes") {
-      frequentMedicineList.push(el.Medicines);
-    }
+    // if (el.Frequent && el.Frequent === "Yes") {
+    //   frequentMedicineList.push(el.Medicines);
+    // }
 
     return el.Medicines;
   });
 
-  console.log("frequentMedicineList:", frequentMedicineList);
+  console.log("groupAssociations:", groupAssociations);
 
-  medicines = sort(medicines, ENUM.MEDICINES, frequentMedicineList);
+  // medicines = sort(medicines, ENUM.MEDICINES, frequentMedicineList);
+  // medicines = medicines;
 
   return (
     <div>

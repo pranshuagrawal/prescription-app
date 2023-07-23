@@ -1,6 +1,9 @@
 import React from "react";
 import { CheckMark } from "../icons";
 import { MED_TYPE } from "../constants";
+import { sort } from "../methods";
+import { ENUM } from "../constants";
+
 // import { SearchIcon } from "./SearchIcon";
 const SelectList = ({
   list = [],
@@ -18,6 +21,7 @@ const SelectList = ({
   filterAssociations = {},
   showSearch = false,
 }) => {
+  console.log("filterAssociations:", filterAssociations);
   const changeHandler = (item) => {
     if (selectedData.data.includes(item)) {
       const _s = [...selectedData.data];
@@ -59,6 +63,28 @@ const SelectList = ({
       setSearchString("");
     }
   };
+
+  const filteredList = React.useMemo(() => {
+    let sortedData = [...list];
+    if (!appliedFilter || MED_TYPE.includes(appliedFilter)) {
+      sortedData = sort(sortedData, ENUM.MEDICINES, []);
+    }
+
+    if (appliedFilter && !MED_TYPE.includes(appliedFilter)) {
+      sortedData = filterAssociations?.[appliedFilter]?.medicines || [];
+    }
+    return sortedData
+      .filter((item, index, arr) => {
+        if (!appliedFilter) return true;
+        if (index !== arr.lastIndexOf(item)) return false;
+        if (MED_TYPE.includes(appliedFilter))
+          return item.includes(appliedFilter);
+        return true;
+      })
+      .filter((item) =>
+        (item || "").toLowerCase().includes((searchString || "").toLowerCase())
+      );
+  }, [list, appliedFilter, searchString]);
 
   return (
     <>
@@ -102,29 +128,15 @@ const SelectList = ({
             </div>
           )}
 
-          {list
-            .filter((item) => {
-              if (!appliedFilter) return true;
-              if (MED_TYPE.includes(appliedFilter))
-                return item.includes(appliedFilter);
-              return (
-                filterAssociations?.[appliedFilter]?.medicines || []
-              ).includes(item);
-            })
-            .filter((item) =>
-              (item || "")
-                .toLowerCase()
-                .includes((searchString || "").toLowerCase())
-            )
-            .map((item) => (
-              <div
-                className="select-list-item"
-                key={item}
-                onClick={() => changeHandler(item)}
-              >
-                {item} {selectedData.data.includes(item) && <CheckMark />}
-              </div>
-            ))}
+          {filteredList.map((item) => (
+            <div
+              className="select-list-item"
+              // key={item}
+              onClick={() => changeHandler(item)}
+            >
+              {item} {selectedData.data.includes(item) && <CheckMark />}
+            </div>
+          ))}
 
           <div className="list-cta-container">
             <div style={{ flex: 1 }}>
