@@ -12,3 +12,13 @@ export const ENUM = {
   MEDICINES: "medicines",
   DIAGNOSIS: "diagnosis",
 };
+
+export const DURATIONS = [
+  "3 Days",
+  "5 Days",
+  "7 Days",
+  "10 Days",
+  "15 Days",
+  "21 Days",
+  "1 Month",
+];

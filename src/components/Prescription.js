@@ -3,7 +3,7 @@ import AddLayout from "./AddLayout";
 import SelectList from "./SelectList";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import { ENUM } from "../constants";
+import { ENUM, DURATIONS } from "../constants";
 
 const Prescription = ({ data, APP_VERSION }) => {
   const [addType, setAddType] = React.useState("");
@@ -141,7 +141,7 @@ const Prescription = ({ data, APP_VERSION }) => {
           <div>
             <strong>Rx</strong>
             {(selectedData?.[ENUM.MEDICINES]?.data || []).map((medicines) => {
-              if (medicines.includes("Days") || medicines.includes("Month")) {
+              if (DURATIONS.includes(medicines)) {
                 return (
                   <div className="individual-element num-of-days">
                     {medicines}
@@ -211,7 +211,7 @@ const Prescription = ({ data, APP_VERSION }) => {
         <div className="sep-section">
           <strong>Rx</strong>
           {(selectedData?.[ENUM.MEDICINES]?.data || []).map((medicines) => {
-            if (medicines.includes("Days") || medicines.includes("Month")) {
+            if (DURATIONS.includes(medicines)) {
               return (
                 <div className="individual-element num-of-days">
                   {medicines}

@@ -2,7 +2,7 @@ import React from "react";
 import { CheckMark } from "../icons";
 import { MED_TYPE } from "../constants";
 import { sort } from "../methods";
-import { ENUM } from "../constants";
+import { ENUM, DURATIONS } from "../constants";
 
 // import { SearchIcon } from "./SearchIcon";
 const SelectList = ({
@@ -137,16 +137,7 @@ const SelectList = ({
 
           <div className="list-cta-container">
             <div style={{ flex: 1 }}>
-              {[
-                "",
-                "3 Days",
-                "5 Days",
-                "7 Days",
-                "10 Days",
-                "15 Days",
-                "21 Days",
-                "1 Month",
-              ].map((day) => (
+              {DURATIONS.map((day) => (
                 <button
                   className={`${
                     selectedData.data.includes(day) ? "primary" : "grey"
