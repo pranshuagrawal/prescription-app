@@ -7,7 +7,6 @@ import { ENUM } from "../constants";
 // import { SearchIcon } from "./SearchIcon";
 const SelectList = ({
   list = [],
-  selectedDays = "",
   selectedData = { data: [], emptyLines: 0 },
   onChange = () => {},
   onChangeDays = () => {},
@@ -130,7 +129,6 @@ const SelectList = ({
           {filteredList.map((item) => (
             <div
               className="select-list-item"
-              // key={item}
               onClick={() => changeHandler(item)}
             >
               {item} {selectedData.data.includes(item) && <CheckMark />}
@@ -146,13 +144,14 @@ const SelectList = ({
                 "7 Days",
                 "10 Days",
                 "15 Days",
+                "21 Days",
                 "1 Month",
               ].map((day) => (
                 <button
                   className={`${
-                    day === selectedDays ? "primary" : "grey"
+                    selectedData.data.includes(day) ? "primary" : "grey"
                   } mr-8 mb-4 sm`}
-                  onClick={() => onChangeDays(day)}
+                  onClick={() => changeHandler(day)}
                 >
                   {day === "" ? "None" : day}
                 </button>

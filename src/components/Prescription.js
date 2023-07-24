@@ -63,7 +63,7 @@ const Prescription = ({ data, APP_VERSION }) => {
       {addType && addType !== "GROUP" && (
         <SelectList
           list={data[addType]}
-          selectedDays={selectedData.days}
+          // selectedDays={selectedData.days}
           selectedData={selectedData[addType]}
           onChange={(l) => {
             updateSelectedData(l, addType);
@@ -140,20 +140,27 @@ const Prescription = ({ data, APP_VERSION }) => {
 
           <div>
             <strong>Rx</strong>
-            {(selectedData?.[ENUM.MEDICINES]?.data || []).map((medicines) => (
-              <div className="individual-element">{medicines}</div>
-            ))}
+            {(selectedData?.[ENUM.MEDICINES]?.data || []).map((medicines) => {
+              if (medicines.includes("Days") || medicines.includes("Month")) {
+                return (
+                  <div className="individual-element num-of-days">
+                    {medicines}
+                  </div>
+                );
+              }
+              return <div className="individual-element">{medicines}</div>;
+            })}
 
             {Array(selectedData[ENUM.MEDICINES].emptyLines)
               .fill("")
               .map((el) => (
                 <div className="empty-lines">_________________________</div>
               ))}
-            {selectedData.days && (
+            {/* {selectedData.days && (
               <div className="individual-element num-of-days">
                 {selectedData.days}
               </div>
-            )}
+            )} */}
             <AddLayout
               title="Medicines"
               onClick={() => {
@@ -203,20 +210,27 @@ const Prescription = ({ data, APP_VERSION }) => {
 
         <div className="sep-section">
           <strong>Rx</strong>
-          {(selectedData?.[ENUM.MEDICINES]?.data || []).map((medicines) => (
-            <div className="individual-element">{medicines}</div>
-          ))}
+          {(selectedData?.[ENUM.MEDICINES]?.data || []).map((medicines) => {
+            if (medicines.includes("Days") || medicines.includes("Month")) {
+              return (
+                <div className="individual-element num-of-days">
+                  {medicines}
+                </div>
+              );
+            }
+            return <div className="individual-element">{medicines}</div>;
+          })}
 
           {Array(selectedData[ENUM.MEDICINES].emptyLines)
             .fill("")
             .map((el) => (
               <div className="empty-lines">_________________________</div>
             ))}
-          {selectedData.days && (
+          {/* {selectedData.days && (
             <div className="individual-element num-of-days">
               {selectedData.days}
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </>
