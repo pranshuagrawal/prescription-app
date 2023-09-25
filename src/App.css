@@ -80,6 +80,7 @@ button.primary {
 
 button.sm {
   padding: 8px 16px;
+  font-size: 16px;
 }
 
 button.grey {
@@ -115,19 +116,20 @@ button.grey {
 .select-list {
   background: #fff;
   border-radius: 6px;
-  width: 440px;
-  max-height: 70vh;
+  width: 540px;
+  max-height: 80vh;
   overflow: auto;
-  margin-top: 100px;
+  margin-top: 70px;
 }
 
 .select-list-item {
-  padding: 7px 10px;
+  padding: 9px 10px;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 18px;
 }
 
 .list-cta-container {

@@ -88,8 +88,6 @@ function App() {
     return el.Medicines;
   });
 
-  console.log("groupAssociations:", groupAssociations);
-
   // medicines = sort(medicines, ENUM.MEDICINES, frequentMedicineList);
   // medicines = medicines;
 
