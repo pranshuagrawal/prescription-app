@@ -147,26 +147,30 @@ const SelectList = ({
             </div>
           )}
 
-          {filteredList.map((item, itemIndex) => (
-            <div
-              className="select-list-item"
-              onClick={() => changeHandler(item)}
-              key={item}
-            >
-              {item}{" "}
-              {selectedData.data.includes(item) && (
-                <span>
-                  <span className="selected-day-label">
-                    {selectedData.data.find(
-                      (d, i, arr) =>
-                        i > arr.indexOf(item) && DURATIONS.includes(d)
-                    )}
-                  </span>{" "}
-                  {<CheckMark />}
-                </span>
-              )}
-            </div>
-          ))}
+          {filteredList.map((item, itemIndex) => {
+            const selectedDay =
+              selectedData.data.includes(item) &&
+              selectedData.data.find(
+                (d, i, arr) => i > arr.indexOf(item) && DURATIONS.includes(d)
+              );
+            return (
+              <div
+                className="select-list-item"
+                onClick={() => changeHandler(item)}
+                // key={item}
+              >
+                {item}{" "}
+                {selectedData.data.includes(item) && (
+                  <span>
+                    {selectedDay && (
+                      <span className="selected-day-label">{selectedDay}</span>
+                    )}{" "}
+                    {<CheckMark />}
+                  </span>
+                )}
+              </div>
+            );
+          })}
 
           <div className="list-cta-container">
             <div style={{ flex: 1 }}>
