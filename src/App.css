@@ -272,3 +272,11 @@ img.signature {
   margin-left: 100px;
   margin-top: 40px;
 }
+
+.selected-day-label {
+  font-size: 12px;
+  background-color: #3498db;
+  padding: 2px 8px;
+  border-radius: 20px;
+  color: #fff;
+}

@@ -31,6 +31,27 @@ const SelectList = ({
     }
   };
 
+  const handleDayChange = (item) => {
+    if (selectedData.data.includes(item)) {
+      let lastDayIndex = -1;
+      let currentClickedDayIndex = -1;
+      selectedData.data.forEach((dataItem, dataItemIndex) => {
+        if (dataItem === item) {
+          currentClickedDayIndex = dataItemIndex;
+        }
+        if (DURATIONS.includes(dataItem)) {
+          lastDayIndex = dataItemIndex;
+        }
+      });
+      const _s = [...selectedData.data];
+      const removedElements = _s.splice(lastDayIndex + 1);
+      _s.splice(currentClickedDayIndex, 0, ...removedElements);
+      onChange([..._s]);
+    } else {
+      onChange([...selectedData.data, item]);
+    }
+  };
+
   const [appliedFilter, setAppliedFilters] = React.useState("");
 
   const handleFilterChange = (filter) => {
@@ -126,12 +147,24 @@ const SelectList = ({
             </div>
           )}
 
-          {filteredList.map((item) => (
+          {filteredList.map((item, itemIndex) => (
             <div
               className="select-list-item"
               onClick={() => changeHandler(item)}
+              key={item}
             >
-              {item} {selectedData.data.includes(item) && <CheckMark />}
+              {item}{" "}
+              {selectedData.data.includes(item) && (
+                <span>
+                  <span className="selected-day-label">
+                    {selectedData.data.find(
+                      (d, i, arr) =>
+                        i > arr.indexOf(item) && DURATIONS.includes(d)
+                    )}
+                  </span>{" "}
+                  {<CheckMark />}
+                </span>
+              )}
             </div>
           ))}
 
@@ -142,7 +175,8 @@ const SelectList = ({
                   className={`${
                     selectedData.data.includes(day) ? "primary" : "grey"
                   } mr-8 mb-4 sm`}
-                  onClick={() => changeHandler(day)}
+                  // onClick={() => changeHandler(day)}
+                  onClick={() => handleDayChange(day)}
                 >
                   {day === "" ? "None" : day}
                 </button>
