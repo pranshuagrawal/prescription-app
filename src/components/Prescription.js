@@ -15,12 +15,25 @@ const Prescription = ({ data, APP_VERSION }) => {
   };
   const [selectedData, setSelectedData] = React.useState({ ...defaultData });
 
+  const filterArrays = (list, daysArray) => {
+    return list.filter((element, index) => {
+      if (index === 0) {
+        return !daysArray.includes(element);
+      } else {
+        return !(
+          daysArray.includes(element) && daysArray.includes(list[index - 1])
+        );
+      }
+    });
+  };
+
   const updateSelectedData = (list, type) => {
+    const newList = filterArrays(list, DURATIONS);
     setSelectedData((d) => ({
       ...d,
       [type]: {
         ...d[type],
-        data: [...(list || [])],
+        data: [...(newList || [])],
       },
     }));
   };

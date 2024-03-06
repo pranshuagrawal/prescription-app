@@ -7,6 +7,7 @@ export const MED_TYPE = [
   "Powder.",
   "Oint.",
 ];
+
 export const ENUM = {
   COMPLAINTS: "complaints",
   MEDICINES: "medicines",

@@ -89,7 +89,11 @@ const SelectList = ({
       sortedData = sort(sortedData, ENUM.MEDICINES, []);
     }
 
-    if (appliedFilter && !MED_TYPE.includes(appliedFilter)) {
+    if (
+      appliedFilter &&
+      !MED_TYPE.includes(appliedFilter) &&
+      appliedFilter !== "showSelected"
+    ) {
       sortedData = filterAssociations?.[appliedFilter]?.medicines || [];
     }
     return sortedData
@@ -98,12 +102,15 @@ const SelectList = ({
         if (index !== arr.lastIndexOf(item)) return false;
         if (MED_TYPE.includes(appliedFilter))
           return item.includes(appliedFilter);
+        if (appliedFilter === "showSelected") {
+          return selectedData.data.includes(item);
+        }
         return true;
       })
       .filter((item) =>
         (item || "").toLowerCase().includes((searchString || "").toLowerCase())
       );
-  }, [list, appliedFilter, searchString, filterAssociations]);
+  }, [list, appliedFilter, searchString, filterAssociations, selectedData]);
 
   return (
     <>
@@ -121,16 +128,28 @@ const SelectList = ({
                   Search
                 </button>
               )}
-              {[...MED_TYPE, ...additionalFilters].map((filter) => (
-                <button
-                  className={`sm mr-4 mb-4 ${
-                    appliedFilter === filter ? "primary" : "grey"
-                  }`}
-                  onClick={() => handleFilterChange(filter)}
-                >
-                  {filter}
-                </button>
-              ))}
+              <button
+                className={`sm mr-4 mb-4 ${
+                  appliedFilter === "showSelected" ? "primary" : "grey"
+                }`}
+                onClick={() => handleFilterChange("showSelected")}
+              >
+                Selected
+              </button>
+              {[...MED_TYPE, ...additionalFilters].map((filter) => {
+                if (["Tab.", "Cap."].includes(filter)) return <></>;
+
+                return (
+                  <button
+                    className={`sm mr-4 mb-4 ${
+                      appliedFilter === filter ? "primary" : "grey"
+                    }`}
+                    onClick={() => handleFilterChange(filter)}
+                  >
+                    {filter}
+                  </button>
+                );
+              })}
 
               {isSearchShow && showSearch && (
                 <div>
