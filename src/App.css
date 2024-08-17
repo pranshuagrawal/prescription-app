@@ -116,10 +116,15 @@ button.grey {
 .select-list {
   background: #fff;
   border-radius: 6px;
-  width: 540px;
+  width: 740px;
   max-height: 80vh;
   overflow: auto;
   margin-top: 70px;
+}
+
+.select-list-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .select-list-item {

@@ -165,31 +165,34 @@ const SelectList = ({
               )}
             </div>
           )}
-
-          {filteredList.map((item, itemIndex) => {
-            const selectedDay =
-              selectedData.data.includes(item) &&
-              selectedData.data.find(
-                (d, i, arr) => i > arr.indexOf(item) && DURATIONS.includes(d)
+          <div className="select-list-items">
+            {filteredList.map((item, itemIndex) => {
+              const selectedDay =
+                selectedData.data.includes(item) &&
+                selectedData.data.find(
+                  (d, i, arr) => i > arr.indexOf(item) && DURATIONS.includes(d)
+                );
+              return (
+                <div
+                  className="select-list-item"
+                  onClick={() => changeHandler(item)}
+                  // key={item}
+                >
+                  {item}{" "}
+                  {selectedData.data.includes(item) && (
+                    <span>
+                      {selectedDay && (
+                        <span className="selected-day-label">
+                          {selectedDay}
+                        </span>
+                      )}{" "}
+                      {<CheckMark />}
+                    </span>
+                  )}
+                </div>
               );
-            return (
-              <div
-                className="select-list-item"
-                onClick={() => changeHandler(item)}
-                // key={item}
-              >
-                {item}{" "}
-                {selectedData.data.includes(item) && (
-                  <span>
-                    {selectedDay && (
-                      <span className="selected-day-label">{selectedDay}</span>
-                    )}{" "}
-                    {<CheckMark />}
-                  </span>
-                )}
-              </div>
-            );
-          })}
+            })}
+          </div>
 
           <div className="list-cta-container">
             <div style={{ flex: 1 }}>
