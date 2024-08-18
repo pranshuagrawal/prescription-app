@@ -9,17 +9,29 @@ function App() {
   const SHEETID = "1ZrQNLPgm2YrdiRD9_Ki4WNclnoy9gObgSjdrlr-Umbg";
   const APIKEY = "AIzaSyCYdBlnNPHHP31kM7D5-9MW9FeqOHfW_q0";
 
-  const { data, loading, error } = useGoogleSheets({
+  const {
+    data: _data,
+    loading,
+    error,
+  } = useGoogleSheets({
     apiKey: APIKEY,
     sheetId: SHEETID,
   });
-  console.log("data:", data);
+  let data = _data;
+
+  if (data && Array.isArray(data) && data.length > 0) {
+    localStorage.setItem("sheetData", JSON.stringify(data));
+  }
 
   if (loading) {
     return <div className="loader">Loading...</div>;
   }
 
   if (error) {
+    const storedData = localStorage.getItem("sheetData");
+    if (storedData) {
+      data = JSON.parse(storedData);
+    }
     return <div className="loader">Error...</div>;
   }
 
