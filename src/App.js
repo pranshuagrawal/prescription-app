@@ -31,8 +31,9 @@ function App() {
     const storedData = localStorage.getItem("sheetData");
     if (storedData) {
       data = JSON.parse(storedData);
+    } else {
+      return <div className="loader">Error...</div>;
     }
-    return <div className="loader">Error...</div>;
   }
 
   const groupsData = (data || []).find((el) => el.id === "Groups")?.data || [];
