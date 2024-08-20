@@ -22,4 +22,5 @@ export const DURATIONS = [
   "15 Days",
   "20 Days",
   "1 Month",
+  "2 Months",
 ];
